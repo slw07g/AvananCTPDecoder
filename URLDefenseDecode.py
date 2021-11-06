@@ -9,11 +9,9 @@ import html.parser
 
 def main():
 	rewrittenurl = sys.argv[1]
-	match = re.search(r'https://urldefense.proofpoint.com/(v[0-9])/', rewrittenurl)
+	match = re.search(r'https://url.avanan.click/v([0-9])/', rewrittenurl)
 	if match:
-		if match.group(1) == 'v1':
-			decodev1(rewrittenurl)
-		elif match.group(1) == 'v2':
+		if match.group(1) == '2':
 			decodev2(rewrittenurl)
 		else:
 			print('Unrecognized version in: ', rewrittenurl)
@@ -21,24 +19,12 @@ def main():
 	else:
 		print('No valid URL found in input: ', rewrittenurl)
 
-def decodev1 (rewrittenurl):
-	match = re.search(r'u=(.+?)&k=',rewrittenurl)
-	if match:
-		urlencodedurl = match.group(1)
-		htmlencodedurl = urllib.parse.unquote(urlencodedurl)
-		url = html.parser.HTMLParser().unescape(htmlencodedurl)
-		print(url)
-	else:
-		print('Error parsing URL')
 
 def decodev2 (rewrittenurl):
-	match = re.search(r'u=(.+?)&[dc]=',rewrittenurl)
+	# https://url.avanan.click/v2/___<original url>___
+	match = re.search(r'https://url.avanan.click/v2/___(.*)___\..*',rewrittenurl)
 	if match:
-		specialencodedurl = match.group(1)
-		trans = str.maketrans('-_', '%/')
-		urlencodedurl = specialencodedurl.translate(trans)
-		htmlencodedurl = urllib.parse.unquote(urlencodedurl)
-		url = html.parser.HTMLParser().unescape(htmlencodedurl)
+		url = match.group(1)
 		print(url)
 	else:
 		print('Error parsing URL')
