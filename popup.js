@@ -4,24 +4,12 @@ var arr = []; // the array
 document.addEventListener('DOMContentLoaded', documentEvents, false);
 
 function myAction(input) {
-  if (/https:\/\/urldefense.proofpoint.com\/v1/.test(input.value)) {
-    var reg = /u=(.+?)&k=/;
-    var specialencodedurl = input.value.match(reg);
-    var transurl = specialencodedurl[1];
-    var decodedurl = decodeURIComponent(transurl);
-    var url = decodedurl;
-    bgp.copyToClipboard(decodedurl);
-  } else if (/https:\/\/urldefense.proofpoint.com\/v2/.test(input.value)) {
-    let mlink = (input.value);
-    var reg = /u=(.+?)&[dc]=/;
-    var specialencodedurl = mlink.match(reg);
-    var transurl = specialencodedurl[1]
-    var urlencodedurl = transurl.replace(/-/g, '%');
-    var htmlencodedurl = urlencodedurl.replace(/_/g, '/');
-    var decodedurl = decodeURIComponent(htmlencodedurl);
-    var url = decodedurl;
-    bgp.copyToClipboard(decodedurl);
-  }
+  var lText = input.value
+  if (/https:\/\/url.avanan.click\/v2\//.test(lText)) {
+    var reg = /https:\/\/url.avanan.click\/v2\/___(.*)___\..*/;
+    var url = lText.match(reg)[1];
+    bgp.copyToClipboard(url)
+  } 
 };
 
 function documentEvents() {

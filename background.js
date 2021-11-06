@@ -31,7 +31,7 @@ function copyToClipboard(text) {
 }
 
 var contexts = ["link", "selection"];
-var title = "Copy URLDefense-Decoded-Link";
+var title = "Copy AvananCTP URL (decoded) ";
 for (var i = 0; i < contexts.length; i++) {
   var context = contexts[i];
   console.log(context);
@@ -40,23 +40,11 @@ for (var i = 0; i < contexts.length; i++) {
 
     function onClickHandler(info) {
       var lText = info.linkUrl;
-      if (/https:\/\/urldefense.proofpoint.com\/v1/.test(lText)) {
-        var reg = /u=(.+?)&k=/;
-        var specialencodedurl = lText.match(reg);
-        var transurl = specialencodedurl[1];
-        var decodedurl = decodeURIComponent(transurl);
-        var url = decodedurl;
-        copyToClipboard(decodedurl)
-      } else if (/https:\/\/urldefense.proofpoint.com\/v2/.test(lText)) {
-        var reg = /u=(.+?)&[dc]=/;
-        var specialencodedurl = lText.match(reg);
-        var transurl = specialencodedurl[1]
-        var urlencodedurl = transurl.replace(/-/g, '%');
-        var htmlencodedurl = urlencodedurl.replace(/_/g, '/');
-        var decodedurl = decodeURIComponent(htmlencodedurl);
-        var url = decodedurl;
-        copyToClipboard(decodedurl)
-      }
+      if (/https:\/\/url.avanan.click\/v2\//.test(lText)) {
+        var reg = /https:\/\/url.avanan.click\/v2\/___(.*)___\..*/;
+        var url = lText.match(reg)[1];
+        copyToClipboard(url)
+      } 
     };
     chrome.contextMenus.removeAll(function() {
       chrome.contextMenus.create({
@@ -64,7 +52,7 @@ for (var i = 0; i < contexts.length; i++) {
         "id": "linkid",
         "contexts": ["link"],
         "onclick": genericOnClick,
-        "targetUrlPatterns": ["https://urldefense.proofpoint.com/*"]
+        "targetUrlPatterns": ["https://url.avana.click/*"]
       });
     });
   } else if (context === "selection") {
@@ -72,30 +60,18 @@ for (var i = 0; i < contexts.length; i++) {
 
     function onClickHandler(info) {
       var sText = info.selectionText;
-      if (/https:\/\/urldefense.proofpoint.com\/v1/.test(sText)) {
-        var reg = /u=(.+?)&k=/;
-        var specialencodedurl = sText.match(reg);
-        var transurl = specialencodedurl[1];
-        var decodedurl = decodeURIComponent(transurl);
-        var url = decodedurl;
-        copyToClipboard(decodedurl)
-      } else if (/https:\/\/urldefense.proofpoint.com\/v2/.test(sText)) {
-        var reg = /u=(.+?)&[dc]=/;
-        var specialencodedurl = sText.match(reg);
-        var transurl = specialencodedurl[1]
-        var urlencodedurl = transurl.replace(/-/g, '%');
-        var htmlencodedurl = urlencodedurl.replace(/_/g, '/');
-        var decodedurl = decodeURIComponent(htmlencodedurl);
-        var url = decodedurl;
-        copyToClipboard(decodedurl)
-      }
+      if (/https:\/\/url.avanan.click\/v2\//.test(sText)) {
+        var reg = /https:\/\/url.avanan.click\/v2\/___(.*)___\..*/;
+        var url = sText.match(reg)[1];
+        copyToClipboard(url)
+      } 
     };
 
     var selectionid;
     chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
       if (msg.request === 'updateContextMenu') {
         var type = msg.selection;
-        if (/https:\/\/urldefense.proofpoint.com/.test(type)) {
+        if (/https:\/\/url.avanan.click\/v2\//.test(type)) {
           var options = {
             title: title,
             contexts: ["selection"],

@@ -2,9 +2,9 @@
   "update_url": "https://clients2.google.com/service/update2/crx",
 
   "manifest_version": 2,
-  "name": "URLDefenseDecoder",
-  "short_name": "URLDefenseDecoder",
-  "description": "Copy a decoded Proofpoint URLDefense URL to clipboard via Chrome's right-click context menu.",
+  "name": "AvananCTPDecoder",
+  "short_name": "AvananCTPDecoder",
+  "description": "Copy a decoded Avanan Click-Time Proctection (CTP) URL to clipboard via Chrome's contextual menu. (Based on URLDefenseDecoder chrome extension).",
   "version": "0.0.2",
   "browser_action": {
     "default_icon": {
@@ -12,7 +12,7 @@
       "38": "icons/38.png"
     },
     "default_popup": "popup.html",
-    "default_title": "URLDefenseDecoder"
+    "default_title": "AvananCTPDecoder"
   },
   "permissions": [
     "contextMenus",
