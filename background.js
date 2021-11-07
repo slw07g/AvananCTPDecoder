@@ -52,7 +52,7 @@ for (var i = 0; i < contexts.length; i++) {
         "id": "linkid",
         "contexts": ["link"],
         "onclick": genericOnClick,
-        "targetUrlPatterns": ["https://url.avana.click/*"]
+        "targetUrlPatterns": ["https://url.avanan.click/*"]
       });
     });
   } else if (context === "selection") {
